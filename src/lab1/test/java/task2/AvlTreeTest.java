@@ -191,6 +191,49 @@ public class AvlTreeTest {
         assertTrue( tree.contains(16));
 
     }
+
+    @Test
+    public void checkRotateWithLeftChild() throws Exception {
+        tree.clean();
+        AvlNode<Integer> test = new AvlNode<>(5, new AvlNode<>(6), new AvlNode<>(7));
+        AvlNode<Integer> n = tree.rotateWithLeftChild(test);
+        assertEquals(6, n.element);
+        assertNull(n.left);
+        assertEquals(5, n.right.element);
+        assertEquals(7, n.right.right.element);
+    }
+
+    @Test
+    public void checkRotateWithRightChild() throws Exception {
+        tree.clean();
+        AvlNode<Integer> test = new AvlNode<>(7, new AvlNode<>(6), new AvlNode<>(5));
+        AvlNode<Integer> n = tree.rotateWithRightChild(test);
+        assertEquals(5, n.element);
+        assertNull(n.right);
+        assertEquals(7, n.left.element);
+        assertEquals(6, n.left.left.element);
+    }
+
+    @Test
+    public void checkDoubleWithLeftChild() throws Exception {
+        tree.clean();
+        AvlNode<Integer> test = new AvlNode<>(5, new AvlNode<>(6), new AvlNode<>(7));
+        tree.rotateWithLeftChild(test);
+        assertEquals(5, test.element);
+        assertNull(test.left);
+        assertEquals(7, test.right.element);
+    }
+
+    @Test
+    public void checkDoubleWithRightChild() throws Exception {
+        tree.clean();
+        AvlNode<Integer> test = new AvlNode<>(7, new AvlNode<>(6), new AvlNode<>(5));
+        AvlNode<Integer> n = tree.rotateWithRightChild(test);
+        assertEquals(7, test.element);
+        assertNull(test.right);
+        assertEquals(6, test.left.element);
+    }
+
     @Test
     void checkDuplicateValue() {
         Exception thrown = assertThrows(
