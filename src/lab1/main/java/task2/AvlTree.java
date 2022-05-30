@@ -15,7 +15,8 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
     public int height(AvlNode<T> t) {
-        return t == null ? -1 : t.height;
+        if (t == null) return -1;
+        return t.height;
     }
 
     public void insert(T... list) throws Exception {
@@ -134,63 +135,6 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
 
-    public void remove(T x) {
-        root = remove(x, root);
-    }
-
-    public AvlNode<T> remove(T x, AvlNode<T> t) {
-        if (t == null) {
-            System.out.println("Sorry but you're mistaken, " + t + " doesn't exist in this tree :)\n");
-            return null;
-        }
-        System.out.println("Remove starts... " + t.element + " and " + x);
-
-        if (x.compareTo(t.element) < 0) {
-            t.left = remove(x, t.left);
-            int l = t.left != null ? t.left.height : 0;
-
-            if ((t.right != null) && (t.right.height - l >= 2)) {
-                int rightHeight = t.right.right != null ? t.right.right.height : 0;
-                int leftHeight = t.right.left != null ? t.right.left.height : 0;
-
-                if (rightHeight >= leftHeight)
-                    t = rotateWithLeftChild(t);
-                else
-                    t = doubleWithRightChild(t);
-            }
-        } else if (x.compareTo(t.element) > 0) {
-            t.right = remove(x, t.right);
-            int r = t.right != null ? t.right.height : 0;
-            if ((t.left != null) && (t.left.height - r >= 2)) {
-                int leftHeight = t.left.left != null ? t.left.left.height : 0;
-                int rightHeight = t.left.right != null ? t.left.right.height : 0;
-                if (leftHeight >= rightHeight)
-                    t = rotateWithRightChild(t);
-                else
-                    t = doubleWithLeftChild(t);
-            }
-        } else if (t.left != null) {
-            t.element = findMax(t.left).element;
-            remove(t.element, t.left);
-
-            if ((t.right != null) && (t.right.height - t.left.height >= 2)) {
-                int rightHeight, leftHeight;
-                rightHeight = t.right.right != null ? t.right.right.height : 0;
-                leftHeight = t.right.left != null ? t.right.left.height : 0;
-
-                if (rightHeight >= leftHeight) t = rotateWithLeftChild(t);
-                else t = doubleWithRightChild(t);
-            }
-        } else {
-            t = t.right;
-        }
-        if (t != null) {
-            int leftHeight = t.left != null ? t.left.height : 0;
-            int rightHeight = t.right != null ? t.right.height : 0;
-            t.height = Math.max(leftHeight, rightHeight) + 1;
-        }
-        return t;
-    }
     public boolean contains(T x) {
         return contains(x, root);
     }   

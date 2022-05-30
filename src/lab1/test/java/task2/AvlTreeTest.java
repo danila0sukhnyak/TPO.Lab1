@@ -59,6 +59,13 @@ public class AvlTreeTest {
     }
 
     @Test
+    public void checkHeight() throws Exception {
+        tree.clean();
+        tree.insert(16, 21, 23, 24);
+        assertEquals(2, tree.height(tree.root));
+
+    }
+    @Test
     public void checkMax() throws Exception {
         tree.clean();
         tree.insert(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
@@ -70,6 +77,59 @@ public class AvlTreeTest {
         tree.clean();
         tree.insert(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
         assertEquals(16, tree.findMin());
+        tree.insert(1, 2, 3);
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(2));
+        assertTrue(tree.contains(3));
+        tree.insert(9, 8, 7);
+        assertTrue(tree.contains(9));
+        assertTrue(tree.contains(8));
+        assertTrue(tree.contains(7));
+        tree.clean();
+        tree.insert(-3, -1, -2);
+        assertTrue(tree.contains(-3));
+        assertTrue(tree.contains(-1));
+        assertTrue(tree.contains(-2));
+        tree.clean();
+        tree.insert(1, 3, 2);
+        assertTrue(tree.contains(3));
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(2));
+        tree.clean();
+        tree.insert(9, 1, 3);
+        assertTrue(tree.contains(9));
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(3));
+    }
+
+    @Test
+    public void check() throws Exception {
+        tree.clean();
+        tree.insert(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
+        assertEquals(16, tree.findMin());
+        tree.insert(1, 2, 3);
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(2));
+        assertTrue(tree.contains(3));
+        tree.insert(9, 8, 7);
+        assertTrue(tree.contains(9));
+        assertTrue(tree.contains(8));
+        assertTrue(tree.contains(7));
+        tree.clean();
+        tree.insert(-3, -1, -2);
+        assertTrue(tree.contains(-3));
+        assertTrue(tree.contains(-1));
+        assertTrue(tree.contains(-2));
+        tree.clean();
+        tree.insert(1, 3, 2);
+        assertTrue(tree.contains(3));
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(2));
+        tree.clean();
+        tree.insert(9, 1, 3);
+        assertTrue(tree.contains(9));
+        assertTrue(tree.contains(1));
+        assertTrue(tree.contains(3));
     }
 
     @Test
@@ -83,95 +143,11 @@ public class AvlTreeTest {
     }
 
     @Test
-    public void checkRemove() throws Exception {
-        tree.clean();
-        tree.insert(16);
-        tree.remove(16);
-        assertFalse(tree.contains(16));
-
-        tree.insert(24, 36, 19, 44, 28, 61, 74, 83);
-        tree.remove(44);
-        assertFalse(tree.contains(44));
-        tree.remove(61);
-        assertFalse(tree.contains(61));
-        tree.remove(83);
-        assertFalse(tree.contains(83));
-        tree.remove(74);
-        assertFalse(tree.contains(74));
-        tree.remove(44);
-        assertFalse(tree.contains(44));
-
+    public void checkContainsNull() {
+        assertFalse(tree.contains(null));
     }
 
-    @Test
-    public void checkRemoveIF() throws Exception {
-        tree.clean();
 
-        tree.insert(1,2,3,4,5,6,7,8,9,0);
-        tree.remove(1);
-        assertFalse(tree.contains(1));
-        tree.remove(2);
-        assertFalse(tree.contains(2));
-        tree.remove(3);
-        assertFalse(tree.contains(3));
-        tree.remove(4);
-        assertFalse(tree.contains(4));
-        tree.remove(5);
-        assertFalse(tree.contains(5));
-        tree.remove(6);
-        assertFalse(tree.contains(6));
-        tree.remove(7);
-        assertFalse(tree.contains(7));
-        tree.remove(8);
-        assertFalse(tree.contains(8));
-        tree.remove(9);
-        assertFalse(tree.contains(9));
-
-    }
-
-    @Test
-    public void checkRemoveIFS() throws Exception {
-        tree.clean();
-
-        tree.insert(1,2,3,4,5,6,7,8,9,0);
-        tree.remove(6);
-        assertFalse(tree.contains(6));
-        tree.remove(3);
-        assertFalse(tree.contains(3));
-        tree.remove(4);
-        assertFalse(tree.contains(4));
-        tree.remove(7);
-        assertFalse(tree.contains(7));
-        tree.remove(8);
-        assertFalse(tree.contains(8));
-        tree.remove(1);
-        assertFalse(tree.contains(1));
-
-    }
-
-    @Test
-    public void checkRemoveIFT() throws Exception {
-        tree.clean();
-
-        tree.insert(1,2,3,4,5,6,7,8,9,0);
-        tree.remove(9);
-        assertFalse(tree.contains(9));
-        tree.remove(8);
-        assertFalse(tree.contains(8));
-        tree.remove(6);
-        assertFalse(tree.contains(6));
-        tree.remove(5);
-        assertFalse(tree.contains(5));
-        tree.remove(4);
-        assertFalse(tree.contains(4));
-        tree.remove(3);
-        assertFalse(tree.contains(3));
-        tree.remove(2);
-        assertFalse(tree.contains(2));
-        tree.remove(1);
-        assertFalse(tree.contains(1));
-
-    }
 
     @Test
     public void testBalanceOfTree() throws Exception {
@@ -184,16 +160,6 @@ public class AvlTreeTest {
         tree.insert(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
         assertTrue(checkBalanceOfTree(tree.root));
         assertTrue(checkOrderingOfTree(tree.root));
-
-        tree.remove(88);
-        assertTrue(checkBalanceOfTree(tree.root));
-        assertTrue(checkOrderingOfTree(tree.root));
-        assertFalse(tree.contains(88));
-
-        tree.remove(32);
-        assertTrue(checkBalanceOfTree(tree.root));
-        assertTrue(checkOrderingOfTree(tree.root));
-        assertFalse(tree.contains(32));
     }
 
     @Test
@@ -206,14 +172,25 @@ public class AvlTreeTest {
         tree.insert(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93);
         assertTrue(checkBalanceOfTree(tree.root));
         assertTrue(checkOrderingOfTree(tree.root));
-
-        tree.remove(86);
-        assertTrue(checkBalanceOfTree(tree.root));
-        assertTrue(checkOrderingOfTree(tree.root));
-        assertFalse(tree.contains(86));
     }
 
+    @Test
+    public void checkClean() throws Exception {
+        tree.clean();
+        tree.insert(16);
+        assertTrue(tree.contains(16));
+        tree.clean();
+        assertFalse(tree.contains(null));
 
+    }
+
+    @Test
+    public void checkContains() throws Exception {
+        tree.clean();
+        tree.insert(16);
+        assertTrue( tree.contains(16));
+
+    }
     @Test
     void checkDuplicateValue() {
         Exception thrown = assertThrows(
